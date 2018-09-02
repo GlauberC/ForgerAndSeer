@@ -1,0 +1,35 @@
+h1{
+  font-size: 5em;
+}
+p{
+  font-size: 4em;
+}
+h2{
+  font-size: 2em;
+}
+h3{
+  font-size: 7em;
+}
+
+footer{
+  font-size: 0.8em;
+  margin-top: 10em;
+  border-top: 8px solid #000;
+  padding-top: 4em;
+}
+.btn{
+  margin-top:15em;
+  padding: 2em;
+  font-size: 2em;
+}
+ul.lista-elementos{
+  margin-top: 5em;
+}
+li{
+  padding: 10em;
+  font-size: 6em;
+}
+.titulo_tema{
+  border-bottom: 8px solid #000;
+  padding-bottom: 1em;
+}
