@@ -4,13 +4,15 @@ var forger;
 function tela_inicial(){
   $('.cabecalho').html("<h1 class='titulo-jogo'>Forger N Seer</h1>");
   $('.info').html("<p>Aperte no botão abaixo para começar uma <strong>nova partida</strong></p>");
-  $('.botao').html("<button class='btn btn-button btn-primary btn-block' onclick='comeca_jogo()'>Começar</button>");
+  $('.botao').html("<button class='btn btn-button btn-primary btn-block' onclick='comeca_jogo()'>Começar com tema aleatório</button>");
+  $('.botao').append("<button class='btn btn-button btn-info btn-block' onclick='listar_temas()'>Escolher o tema</button>");
 }
 
 $(document).ready(function(){
-    console.log('Alterou2?');
     tela_inicial();
 });
+
+
 
 
 function startTimer(duration, display) {
@@ -137,9 +139,38 @@ function ler_arquivo(){
 //   Trata entrada para casos,,,,,,
 //   retorna lista
 }
+function listar_temas(){
+      $('.info').html("");
+      $('.botao').html("");
+   $.get("dados.csv", function(data, status){
+//     Separa as linhas num vetor de linhas
+    var tema;
+    var dados = data.match(/.+/ig);
+    for(i = 1; i<dados.length; i++){
+      linha = dados[i].split(',');
+      linha = linha.filter(Boolean);
+      tema = linha[0];
+      linha.shift();
+      $('.botao').append("<button class='btn btn-button btn-default btn-block btn-tema' linha='" + linha + "' onClick = 'tema_escolhido(this)'>"+ tema +"</button>");
+    }
+    $('.cabecalho').html("<h1 class='escolhe_tema'>Escolher Tema</h1>");
+     
+    
+ });
+}
 
-function comeca_jogo(tema = 'null'){
+function comeca_jogo(tema = 'null', lista=[]){
   if(tema == 'null'){
      ler_arquivo();
+  }else{
+    $('.cabecalho').html("<h1 class='titulo_tema' linha='" + lista + "'>" + tema + "</h1>");
+    $('.info').html("<p>Tema escolhido, aperte no botão abaixo para escolher a palavra do Seer</p>");
+    $('.botao').html("<button class='btn btn-button btn-success btn-block' onclick='escolhe_seer()'>Escolhe Seer</button>");
   }
+}
+
+function tema_escolhido(botao){
+  var tema = $(botao).html();
+  var lista = $(botao).attr('linha').split(',');
+  comeca_jogo(tema, lista);
 }
